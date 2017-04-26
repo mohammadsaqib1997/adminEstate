@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    div#main
+        ul
+            li
+                router-link(to="/") Home
+            li
+                router-link(to="/check") Check
+            li
+                a(href="/check") Check Url Anch
+        router-view
