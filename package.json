@@ -5,6 +5,14 @@
   "scripts": {
     "start": "node ./bin/www"
   },
+  "browserify": {
+    "transform": [
+      "vueify"
+    ]
+  },
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
+  },
   "dependencies": {
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
@@ -12,6 +20,16 @@
     "express": "~4.14.1",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "vue": "^2.2.6",
+    "vue-router": "^2.5.2"
+  },
+  "devDependencies": {
+    "browserify": "^14.3.0",
+    "cross-env": "^4.0.0",
+    "envify": "^4.0.0",
+    "uglify-js": "^2.8.22",
+    "vueify": "^9.4.1",
+    "watchify": "^3.9.0"
   }
 }
