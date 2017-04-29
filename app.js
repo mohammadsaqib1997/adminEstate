@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var history = require('connect-history-api-fallback');
+//var history = require('connect-history-api-fallback');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -25,9 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/web', users);
 
-app.use(history({
+/*app.use(history({
     index: "/"
-}));
+}));*/
 app.use('/', index);
 
 // catch 404 and forward to error handler
