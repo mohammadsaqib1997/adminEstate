@@ -4,10 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var exp_validator = require('express-validator');
+var session = require('express-session');
 //var history = require('connect-history-api-fallback');
 
+var firebase = require('firebase');
+var fbConfig = {
+    apiKey: "AIzaSyARlAhDIWmtKDh4epX8J8Tpbv3lnmBsjzU",
+    authDomain: "estatepro-e01da.firebaseapp.com",
+    databaseURL: "https://estatepro-e01da.firebaseio.com",
+    storageBucket: "estatepro-e01da.appspot.com",
+    projectId: "estatepro-e01da"
+};
+firebase.initializeApp(fbConfig);
+
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -19,11 +30,23 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(exp_validator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.'), root = namespace.shift(), formParam = root;
+        while(namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param : formParam,
+            msg   : msg,
+            value : value
+        };
+    }
+}));
 app.use(cookieParser());
+app.use(session({secret: "This is Realestate Secret!", resave: false, saveUninitialized: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/web', users);
 
 /*app.use(history({
  index: "/"

@@ -2333,8 +2333,8 @@ Component: timeline
 ------------------------
 */
 .alert {
-    padding-left: 30px;
-    margin-left: 15px;
+    /*padding-left: 30px;*/
+    /*margin-left: 15px;*/
     position: relative;
 }
 

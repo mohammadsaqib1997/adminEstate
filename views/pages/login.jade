@@ -3,17 +3,21 @@ extends ../layouts/signup_layout
 block content
     #login-box.form-box
         .header Sign In
-        form(action='/', method='get')
+        form(action='/login', method='post')
             .body.bg-gray
+                if(errors)
+                    - each err in errors
+                        p.alert.alert-danger #{err.msg}
                 .form-group
-                    input.form-control(type='text', name='userid', placeholder='User ID')
+                    input.form-control(type='text', name='email', placeholder='Email')
                 .form-group
                     input.form-control(type='password', name='password', placeholder='Password')
-                .form-group
-                    label.label-cus
-                        input(type='checkbox', name='remember_me')
-                        |  Remember me
+                //.form-group
+                //    label.label-cus
+                //        input(type='checkbox', name='remember_me')
+                //        |  Remember me
             .footer
                 button.btn.bg-olive.btn-block(type='submit') Sign me in
+                input(type='hidden' name='_csrf' value=csrf)
                 p.text-right
                     a.text-info(href='#') I forgot my password
