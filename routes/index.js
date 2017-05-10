@@ -41,13 +41,22 @@ router.get('/404', function(req, res, next) {
     res.render('pages/error_404', { title: 'MineAim | 404 Page not found' });
 });
 
+//here is middleware login
 router.use('/', isLoggedIn, function (req, res, next) {
     next();
 });
 
-/* GET home page. */
+/* Here is login routes */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'MineAim | Dashboard' });
+    res.render('index', { title: 'MineAim | Dashboard', page: "dashboard" });
+});
+
+router.get("/users", function(req, res, next){
+    res.render('pages/users', { title: 'MineAim | Users', page: "users"  })
+});
+
+router.get("/requests", function(req, res, next){
+    res.render('pages/requests', { title: 'MineAim | Requests', page: "requests"  })
 });
 
 router.get('/logout', function(req, res, next) {
