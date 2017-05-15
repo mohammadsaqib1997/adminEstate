@@ -9,15 +9,17 @@ var session = require('express-session');
 //var history = require('connect-history-api-fallback');
 
 var firebase = require('firebase');
-var fbConfig = {
-    apiKey: "AIzaSyARlAhDIWmtKDh4epX8J8Tpbv3lnmBsjzU",
-    authDomain: "estatepro-e01da.firebaseapp.com",
-    databaseURL: "https://estatepro-e01da.firebaseio.com",
-    storageBucket: "estatepro-e01da.appspot.com",
-    projectId: "estatepro-e01da"
-};
+var fbConfig = require('./config/app_config.json').firebase_config;
 firebase.initializeApp(fbConfig);
 
+var firebase_admin = require('firebase-admin');
+var service_account = require('./config/firebase_admin_cred.json');
+firebase_admin.initializeApp({
+    credential: firebase_admin.credential.cert(service_account),
+    databaseURL: fbConfig.databaseURL
+});
+
+var api = require('./routes/api');
 var index = require('./routes/index');
 
 var app = express();
@@ -51,6 +53,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*app.use(history({
  index: "/"
  }));*/
+// api routes working here..
+app.use('/api', api);
+
+// web routes working here..
 app.use('/', index);
 
 // catch 404 and forward to error handler
